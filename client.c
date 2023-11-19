@@ -58,7 +58,7 @@ int main() {
 
     // Set up the server address structure
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr("192.168.1.11");
+    server_addr.sin_addr.s_addr = inet_addr("192.168.1.6");
     server_addr.sin_port = htons(12345);
 
     // Connect to the server
