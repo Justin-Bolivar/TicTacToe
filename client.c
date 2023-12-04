@@ -7,11 +7,13 @@
 
 // Function to display the combined Tic-Tac-Toe board
 void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char client_board[BOARD_SIZE][BOARD_SIZE]) {
-    printf("\nCombined Board:\n");
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        for (int j = 0; j < BOARD_SIZE; ++j) {
+    printf("\nGame State:\n");
+
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
             printf("%c ", (server_board[i][j] == ' ') ? client_board[i][j] : server_board[i][j]);
         }
+        
         printf("\n");
     }
 }
