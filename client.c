@@ -18,19 +18,27 @@ void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char clie
 
 // Function to check if a player has won
 int check_win(char board[BOARD_SIZE][BOARD_SIZE], char marker) {
-    // Check rows and columns
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        if ((board[i][0] == marker && board[i][1] == marker && board[i][2] == marker) ||
-            (board[0][i] == marker && board[1][i] == marker && board[2][i] == marker)) {
+    // Check row
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        if(board[i][0] == marker && board[i][1] == marker && board[i][2] == marker)  {
             return 1; // Win
         }
     }
 
-    // Check diagonals
-    if ((board[0][0] == marker && board[1][1] == marker && board[2][2] == marker) ||
-        (board[0][2] == marker && board[1][1] == marker && board[2][0] == marker)) {
-        return 1; // Win
+    //check col
+    for(int i = 0; i < BOARD_SIZE; i++) {
+        if(board[0][i] == marker && board[1][i] == marker && board[2][i] == marker) {
+            return 1;
+        }
     }
+
+    // Check diagonals
+    if (board[0][0] == marker && board[1][1] == marker && board[2][2] == marker) {
+        return 1; // Win
+        }
+        else if (board[0][2] == marker && board[1][1] == marker && board[2][0] == marker) {
+            return 1;
+        }
 
     return 0; // No win
 }
