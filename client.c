@@ -68,7 +68,7 @@ int main() {
 
     // Set up the server address structure
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr("172.30.14.117");
+    server_addr.sin_addr.s_addr = inet_addr("192.168.1.6");
     server_addr.sin_port = htons(12345);
 
     // Connect to the server
@@ -79,6 +79,16 @@ int main() {
 
     int game_over = 0;
     char marker;
+
+    int count = 1;
+    printf("TicTacToe Format:\n");
+    for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                printf("[%d] ", count);
+                count++;
+            }
+            printf("\n");
+        }
 
     while (!game_over) {
         // Display the combined board
@@ -100,16 +110,6 @@ int main() {
             printf("\nIt's a draw!\n");
             game_over = 1;
             break;
-        }
-
-    int count = 1;
-    printf("TicTacToe Format:\n");
-    for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                printf("[%d] ", count);
-                count++;
-            }
-            printf("\n");
         }
 
         // Display the updated combined board
