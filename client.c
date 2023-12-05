@@ -68,7 +68,7 @@ int main() {
 
     // Set up the server address structure
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr("192.168.1.6");
+    server_addr.sin_addr.s_addr = inet_addr("172.30.14.117");
     server_addr.sin_port = htons(12345);
 
     // Connect to the server
@@ -95,7 +95,7 @@ int main() {
             display_combined_board(server_board, client_board);
             printf("\nAI (X) wins!\n");
             game_over = 1;
-        } else if (++move > BOARD_SIZE * BOARD_SIZE) {
+        } else if (move++ > BOARD_SIZE * BOARD_SIZE) {
             display_combined_board(server_board, client_board);
             printf("\nIt's a draw!\n");
             game_over = 1;
@@ -120,7 +120,7 @@ int main() {
             display_combined_board(server_board, client_board);
             printf("\nPlayer (O) wins!\n");
             game_over = 1;
-        } else if (++move > BOARD_SIZE * BOARD_SIZE) {
+        } else if (move++ > BOARD_SIZE * BOARD_SIZE) {
             display_combined_board(server_board, client_board);
             printf("\nIt's a draw!\n");
             game_over = 1;

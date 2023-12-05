@@ -118,21 +118,21 @@ int main() {
 
         // Server's turn (AI)
         move = make_random_move(server_board);
-        printf("\nServer (O) chooses position %d\n", move);
+        printf("\nServer (X) chooses position %d\n", move);
 
         // Update the server's board with the move
-        server_board[(move - 1) / BOARD_SIZE][(move - 1) % BOARD_SIZE] = 'O';
+        server_board[(move - 1) / BOARD_SIZE][(move - 1) % BOARD_SIZE] = 'X';
 
         // Send the move to the client
         send(client_socket, (char*)&move, sizeof(int), 0);
 
         // Check for a win on the server side
-        if (check_win(server_board, 'O')) {
+        if (check_win(server_board, 'X')) {
             display_combined_board(server_board, client_board);
-            printf("\nServer (O) wins!\n");
+            printf("\nServer (X) wins!\n");
             game_over = 1;
             break;
-        } else if (++move > BOARD_SIZE * BOARD_SIZE) {
+        } else if (move++ > BOARD_SIZE * BOARD_SIZE) {
             display_combined_board(server_board, client_board);
             printf("\nIt's a draw!\n");
             game_over = 1;
@@ -147,16 +147,18 @@ int main() {
         client_board[(move - 1) / BOARD_SIZE][(move - 1) % BOARD_SIZE] = 'X';
 
         // Check for a win on the client side
-        if (check_win(client_board, 'X')) {
+        if (check_win(client_board, 'O')) {
             display_combined_board(server_board, client_board);
-            printf("\nPlayer (X) wins!\n");
+            printf("\nPlayer (O) wins!\n");
             game_over = 1;
-        } else if (++move > BOARD_SIZE * BOARD_SIZE) {
+        } else if (move++ > BOARD_SIZE * BOARD_SIZE) {
             display_combined_board(server_board, client_board);
             printf("\nIt's a draw!\n");
             game_over = 1;
         }
     }
+
+Sleep(10000);
 
     // Close the connection with the client
     closesocket(client_socket);
