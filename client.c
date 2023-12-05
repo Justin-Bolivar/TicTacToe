@@ -82,7 +82,7 @@ int main() {
 
     int count = 1;
     printf("-------------------------------------------------------\n");
-    printf("Welcome to Tic Tac Toe Place a move by Entering numbers 1-9 corresponding to the board\n");
+    printf("Welcome to Tic Tac Toe Place a move by Entering numbers 1-9\n");
     for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 printf("[%d] ", count);
