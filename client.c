@@ -11,7 +11,7 @@ void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char clie
 
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            printf("%c ", (server_board[i][j] == ' ') ? client_board[i][j] : server_board[i][j]);
+            printf("[%c] ", (server_board[i][j] == ' ') ? client_board[i][j] : server_board[i][j]);
         }
         
         printf("\n");
@@ -100,6 +100,16 @@ int main() {
             printf("\nIt's a draw!\n");
             game_over = 1;
             break;
+        }
+
+    int count = 1;
+    printf("TicTacToe Format:\n");
+    for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                printf("[%d] ", count);
+                count++;
+            }
+            printf("\n");
         }
 
         // Display the updated combined board
