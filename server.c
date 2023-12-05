@@ -66,30 +66,25 @@ int main() {
     char server_board[BOARD_SIZE][BOARD_SIZE] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
     char client_board[BOARD_SIZE][BOARD_SIZE] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
-    // Initialize Winsock
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
         printf("Failed to initialize Winsock\n");
         return 1;
     }
 
-    // Create a socket
     if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
         printf("Failed to create socket\n");
         return 1;
     }
 
-    // Set up the server address structure
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(12345);
 
-    // Bind the socket
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
         printf("Bind failed\n");
         return 1;
     }
 
-    // Listen for incoming connections
     if (listen(server_socket, 1) == SOCKET_ERROR) {
         printf("Listen failed\n");
         return 1;
@@ -97,10 +92,8 @@ int main() {
 
     printf("Server listening on port 12345\n");
 
-    // Seed the random number generator for AI moves
     srand((unsigned int)time(NULL));
 
-    // Accept connections and play Tic-Tac-Toe
     if ((client_socket = accept(server_socket, (struct sockaddr*)&client_addr, &client_addr_len)) == INVALID_SOCKET) {
         printf("Accept failed\n");
         return 1;
@@ -113,20 +106,15 @@ int main() {
     char marker;
 
     while (!game_over) {
-        // Display the combined board
         display_combined_board(server_board, client_board);
 
-        // Server's turn (AI)
         move = make_random_move(server_board);
         printf("\nServer (X) chooses position %d\n", move);
 
-        // Update the server's board with the move
         server_board[(move - 1) / BOARD_SIZE][(move - 1) % BOARD_SIZE] = 'X';
 
-        // Send the move to the client
         send(client_socket, (char*)&move, sizeof(int), 0);
 
-        // Check for a win on the server side
         if (check_win(server_board, 'X')) {
             display_combined_board(server_board, client_board);
             printf("\nServer (X) wins!\n");
@@ -139,14 +127,11 @@ int main() {
             break;
         }
 
-        // Receive the move from the client
         recv(client_socket, (char*)&move, sizeof(int), 0);
         move = *(int*)buffer;
 
-        // Update the client's board with the move
         client_board[(move - 1) / BOARD_SIZE][(move - 1) % BOARD_SIZE] = 'X';
 
-        // Check for a win on the client side
         if (check_win(client_board, 'O')) {
             display_combined_board(server_board, client_board);
             printf("\nPlayer (O) wins!\n");
@@ -160,10 +145,8 @@ int main() {
 
 Sleep(10000);
 
-    // Close the connection with the client
     closesocket(client_socket);
 
-    // Cleanup
     closesocket(server_socket);
     WSACleanup();
 
