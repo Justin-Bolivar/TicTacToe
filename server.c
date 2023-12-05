@@ -7,7 +7,6 @@
 
 #define BOARD_SIZE 3
 
-// Function to display the combined Tic-Tac-Toe board
 void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char client_board[BOARD_SIZE][BOARD_SIZE]) {
     printf("\nGame State:\n");
 
@@ -20,12 +19,12 @@ void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char clie
     }
 }
 
-// Function to check if a player has won
+
 int check_win(char board[BOARD_SIZE][BOARD_SIZE], char marker) {
-    // Check row
+    // check row
     for (int i = 0; i < BOARD_SIZE; i++) {
         if(board[i][0] == marker && board[i][1] == marker && board[i][2] == marker)  {
-            return 1; // Win
+            return 1;
         }
     }
 
@@ -36,18 +35,17 @@ int check_win(char board[BOARD_SIZE][BOARD_SIZE], char marker) {
         }
     }
 
-    // Check diagonals
+    //check diagonals
     if (board[0][0] == marker && board[1][1] == marker && board[2][2] == marker) {
-        return 1; // Win
+        return 1;
         }
         else if (board[0][2] == marker && board[1][1] == marker && board[2][0] == marker) {
             return 1;
         }
 
-    return 0; // No win
+    return 0;
 }
 
-// Function to make a random move for the AI
 int make_random_move(char board[BOARD_SIZE][BOARD_SIZE]) {
     int move;
     do {

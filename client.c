@@ -18,9 +18,8 @@ void display_combined_board(char server_board[BOARD_SIZE][BOARD_SIZE], char clie
     }
 }
 
-
 int check_win(char board[BOARD_SIZE][BOARD_SIZE], char marker) {
-    // Check row
+    // check row
     for (int i = 0; i < BOARD_SIZE; i++) {
         if(board[i][0] == marker && board[i][1] == marker && board[i][2] == marker)  {
             return 1;
@@ -34,7 +33,7 @@ int check_win(char board[BOARD_SIZE][BOARD_SIZE], char marker) {
         }
     }
 
-    // Check diagonals
+    // check diagonals
     if (board[0][0] == marker && board[1][1] == marker && board[2][2] == marker) {
         return 1;
         }
@@ -54,24 +53,20 @@ int main() {
     char server_board[BOARD_SIZE][BOARD_SIZE] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
     char client_board[BOARD_SIZE][BOARD_SIZE] = {{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
 
-    // Init Winsock
     if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
         printf("Failed to initialize Winsock\n");
         return 1;
     }
 
-    // Create a socket
     if ((client_socket = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
         printf("Failed to create socket\n");
         return 1;
     }
 
-    // Set up server address structure
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = inet_addr("192.168.1.6");
     server_addr.sin_port = htons(12345);
 
-    // Connect to server
     if (connect(client_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) == SOCKET_ERROR) {
         printf("Connection failed\n");
         return 1;
